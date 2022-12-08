@@ -1,87 +1,97 @@
-//Tuplas y listas
-//Conjuntos -> grupo de valores únicos
-val conj2 : Set[Int] = Set()
-val conjunto : Set[Int] = Set(1, 1, 2, 2, 2, 3)
-val conjunto : Set[Int] = Set(1, 2, 3)
-val conNuevo = conjunto + 6
-//algunas funciones
-val conjunto : Set[Int] = Set(1, 2, 3)
-val conNuevo = conjunto.concat(List(2, 3, 4, 5))
 
-val conjunto : Set[Int] = Set(1, 2, 3)
-val conNuevo = conjunto.concat(List(2, 3, 4, 5))
+val goleadores = List(     ("Oscar Becerra" , 17),
+  ("Luis Amarallia" , 16),
+  (" Michael Estrada", 16),
+  ("Fidel Martínez", 16),
+  ("Gonzalo Mastriani", 13),
+  ("Leonel Vides" , 13),
+  ("Rodrigo Aguirre", 12),
+  ("Carlos Garces" , 12),
+  ("Jonathan Borja" , 11))
+val goles = goleadores.map(_._2).map(_.toDouble)
+val average=
+  (values:List[Double])=>values.sum/values.length
+val avgol= average(goles)
+goleadores.maxBy(_._2)._1
+goleadores.minBy(_._2)._1
+
+
+
+/* Mayor al promedio */
+val goles1 = goleadores.map(_._2).map(_.toDouble)
+val average1=
+  (values:List[Double])=>values.sum/values.length
+val avgol1= average(goles1)
+val mayoresAvg=goleadores.
+  filter(_._2>avgol1).
+  map(_._1)
+
+
+/* Conjuntos
+Grupo de valores unicos */
+val conj2:Set[Int]=Set()
+val conjunto : Set[Int]=Set(1,1,2,2,3,3)
+
+/* Agregar un valor al conjunto */
+val conjunto2: Set[Int]=Set(1,2,3)
+val conNuevo = conjunto + 6
+
+/* Concatenar conjuntos Union de conjunto */
+val conjunto3: Set[Int]=Set(1,2,3)
+val conNuevo2 = conjunto.concat(List(2,3,4,5))
+
+/* Intersect conjunto */
 conNuevo.intersect(conjunto)
 
-//Mapas
-//Diccionarios o mapas
-//En Scala se contruyen diccionarios como mapas
-//  Map[K, V]
-//K - Representa a las claves
-// V - representa a los valores
-Map(("apples", 3), ("oranges", 2), ("pears", 0))
-Map("apples" -> 3, "oranges" -> 2, "pears" -> 0)
-//convertir
-//Método toMap: convertir una Lista de tuplas en un mapa
-List(("apples", 3), ("oranges", 2), ("pears", 0)).toMap
 
-//Método toSeq: convertir un Map en una secuencia de pares (tuplas 2)
-Map(("apples", 3), ("oranges", 2), ("pears", 0)).toSeq
-Map("apples" -> 3, "oranges" -> 2, "pears" -> 0).toSeq
+/* Mapas en Scala */
+Map((1,2),(1,100))
 
-//Map en funciones
-val fruitBasket = Map("apples" -> 3, "oranges" -> 2, "pears" -> 0)
+/* Convertir una Lista de tupla a mapa */
+List ((1,2),(1,100)).toMap
 
-fruitBasket.map {
-  case (fruit, count) => count * 2
+/* Convertir mapa a secuencia de pares */
+
+Map((1,2),(1,100)).toSeq
+
+/* map en Mapas
+Funciones */
+/* val fruitBasket = Map("manzana"->3, "banana"->2, "pera"->0)
+(fruitBasket.map(data=> data match{
+    case(fruit,count)=>count*2
+})
+fruitBasket.map{case(fruit,count)=>(fruit,count*2)}
+fruitBasket.map{case(fruit,count)=>(fruit,count,count*2)}.
+map{case(fruit,_,count2)=>(fruit,count2/2)}.toMap */
+
+/* Groupby */
+
+/* Seq("camisa","gabra","xaca","pabroi")
+groupBy(s=>if(s startsWith"y")1 else 2)
+Map[Int,Seq[String]]=Map(1->List(yogurt),2->List("camisa","cabra","caca")) */
+
+List(1,2,3,4,5).groupBy(k=>k%3)
+
+/* Una tupla de jugadores que tiene el mismo numero de goles se clasifica la clave con el numero de goles*/
+val goleadores2 = List(     ("Oscar Becerra" , 17),
+  ("Luis Amarallia" , 16),
+  (" Michael Estrada", 16),
+  ("Fidel Martínez", 16),
+  ("Gonzalo Mastriani", 13),
+  ("Leonel Vides" , 13),
+  ("Rodrigo Aguirre", 12),
+  ("Carlos Garces" , 12),
+  ("Jonathan Borja" , 11))
+goleadores.groupBy{
+  case(_,goals)=> goals
 }
-//Otro modo
-fruitBasket.map{case(fruit, count) => count * 2}
-
-fruitBasket.map{case (fruit, count) => (fruit, count * 2)}
-
-fruitBasket.map{case(fruit, count) => (fruit, count, count * 2)}.
-  map{case (fruit, _, count2) => (fruit, count2/2)}.toMap
-
-//filter
-//Itera sobre pares key/values
-val fruitBasket = Map("apples" -> 3, "oranges" -> 2, "pears" -> 0)
-fruitBasket
 
 
-//GroupBy
-//Reorganiza una secuencia en un mapa donde algunos de los elementos de la secuencia original
-// se agrupan en subsecuencias
-// Por ejemplo dada una secuencia de palabras, podemos agrupar todas las palabras que comienzan con la letra "y"
-// en una subsecuencia y todas las demás palabras en otra subsecuencia
-
-Seq("wombat", "xanthan", "yogurt", "zebra").
-  groupBy(s => if (s startsWith "y") 1 else 2)
-
-// El argumento del groupBy es una función que calcula el "key" de cada elemento de cada secuencia
-// Asigna cada clave a la subsecuencia de valores que tienen esa clave. En el ejemplo actual el tipo de mapa es,
-// por tanto, Map [Int, Seq[String])
-
-// EL orden de los elementos en las subsecuencias sigue siendo el mismo que en la secuencia original
-List(1, 2, 3, 4, 5).groupBy(k => k % 3)
 
 
-val nombres = List("Oscar Becerra", "Luis Amarilla", "Michael Estrada", "Fidel Martínez", "Gonzalo Mastriani",
-  "Leonel Vides", "Rodrigo Aguirre", "Carlos Garces", "Jonathan Borja")
-val goles = List(17, 16, 16, 16, 13, 13, 12, 12, 11)
-val goleadores = nombres zip goles
-goleadores.groupBy{case (_, goals) => goals }
-//Cuantos hicieron los mismos goles
-goleadores.groupBy(row => row  match {
-  case(_, goals) => goals
-}).map(row => row match {
-  case (goles, lista) => (goles, lista.size)
-}).toList.sortBy(_._2)
 
-// Número de goles más comúm
-goleadores.groupBy(row => row match {
-  case(_, goals) =>
-}).map(row => row match{
-  case (goles, lista) => (goles, lista.size)
-}).toList.sortBy(_._2).reverse
-
-val fruit = Set("apple", "orange", "peach", "banana")
+goleadores.groupBy{
+  case (_,goals)=> goals
+}.map{
+  case(goles,lista)=>(goles,lista.size)
+}.toList.sortBy(_._2)

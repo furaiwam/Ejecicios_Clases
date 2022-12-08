@@ -1,97 +1,58 @@
-val names : List[String] = List("Leo", "Cristian", "Enner", "Felipe")
-names.map(_.length)
-
-//  "_" mapea todo
-
-val numbers =List(3,4,7,11,12)
-val isPrime = (nro :Int) => (2 to nro -1).forall((nro% _!= 0))
-numbers.map(isPrime(_) match {
-  case true =>1
-  case false => 0
-}).sum
-
-//
-def main(args: Array[String]): Unit = {
-  val k=10000
-  val arctan = (n: Int) =>(0 until k).toList.map(i => (math.pow(-1, i) / (2 * i + 1) *
-    (math.pow(n, -2 * i - 1)))).sum
-  val pi = (4 * (4 * arctan(5) - arctan(239)))
-  println(pi)
+val cedula = "1108765321"
+// cedula = "1108765320"
+var cedula1 = "1108765321"
+cedula1 = "1108765320"
+(x: Double) => - Math.pow(x,2) +8*x -12
+val f1 = (x: Double) => - Math.pow(x,2) +8*x -12
+f1 (12)
+f1(12) * 9 / 8 + 3
+((x: Double) => -Math.pow(x,2) + 8 * x - 12)(12) * 9 / 8 + 3
+def integracion(a: Int, b: Int, f:  Double => Double) = {
+  val intermedio = (a+b)/2.0
+  val fa = f(a)
+  val fi = f(intermedio)
+  val fb = f(b)
+  (b-a) * (fa + 4 * fi + fb) / 6
 }
-
-
-val numbers =List(6,28,15,12,11,24)
-val sumDiv =(nro : Int) => (1 until nro).filter(div => nro % div == 0).sum
-
-numbers.filter(nro => nro == sumDiv(nro)).size
-
-
-/*forall -> devuelve true si y solo si el predicado devuelve true
-para todos los valores de la lista*/
-
-def isPrime(nro: Int): Boolean = (2 until nro).forall((nro %_ !=0))
-
-/* exists -> devuelve true si y solo si el predicado devuelve true
-para por los menos un valor de la lista
- */
-def isPrime(nro: Int): Boolean = !(2 until nro).exists((nro %_ ==0))
-/*
-val res = List(1,2,3,4,5).filter( k=> k % 3 !=0)
-res: List[Int] = List(1,2,4,5).size
-
-List(1,2,3,4,5).takeWhile(k=> k %3!=0)
-res: List[Int] = List(1,2)
-*/
-
-print("================================================")
-(n :Int) => (1 until n).filter(div => n% div ==0)
-
-def factorialEscalonado(n:Int):Int={
-  n% 2 match {
-    case 0=>(2 to n by 2).product
-    case _=>(1 to n by 2).product
+def select(option: Char) : (Int, Int) => Double = {
+  option match{
+    case '+' => (a: Int, b: Int) => a+b
+    case '-' => (a: Int, b: Int) => a-b
+    case '*' => (a: Int, b: Int) => a*b
+    case '/' => (a: Int, b: Int) => a/b.toDouble
+    case _ => (a: Int, b: Int) => 0/(a+b)
   }
 }
-
-factorialEscalonado(8)
-factorialEscalonado(9)
-/*
-deficiente = Suma de los Divisores < N
-perfecto = suma divisor = N
-Abundante = Suma divisores > N
-
- */
-val numbers = (1 to 20).toList
-// toList = todo en entero
-
-//contar pares
-numbers.filter(nro =>nro %2 ==0).size
-numbers.count(nro => nro % 2 ==0)
-
-//contar impare
-numbers.filter(nro =>nro %2 !=0).size
-numbers.count(nro =>nro %2 !=0)
-
-//Contar Primos
-def contarPrimos(nro : List[Int]): Int={
-  val isPrime = (n :Int) => (2 to n -1).forall(n % _!=0)
-  nro.filter(isPrime).size
+select('+')(2, 1)
+val operacion = select('+')
+operacion(2, 1)
+var L = List (5, 6, 7, 8, 9)
+//val L = List[Int]
+// def isEven(k: Int) => if(k%2 == 0) 1 else 0
+def isEven(k: Int) : Int = (k%2) match {
+  case 0 => 1
+  case _ => 0
 }
-contarPrimos(numbers)
+def countEven( s: List[Int]): Int = s.map(isEven).sum
+countEven(L)
 
-//Presentar 3 Factores
+List(1,2,3).sum
+// res1: List[Int] = List(101, 204, 309)
+def func1(x: Int): Int = x*x + 100*x
+List (1,2,3).map(func1)
+// res3: List[Int] = List(101, 204, 309)
+val nums = List(1,2,3)
+nums.map(x => x+1)
+def add1(a: Int): Int = a+1
+nums.map(add1)
+nums.map(x => add1(x))
+nums.map(add1(_))
 
-def tresFactores (nros : List[Int]) : List[Int]={
-  val factores = (n : Int) => (2 until n).filter(n % _ ==0)
-  nros.filter(nros => factores(nros).size ==3 )
-}
-tresFactores((1 to 1000).toList)
-
-def countEven(s:List[Int]) :Int={
-  val isEven=(k: Int)=> k % 2 match {
-    case 0 =>1
-    case _ =>0
-  }
-  s.map(isEven).sum
-}
-
+val sumaDos = (a: Int, b: Int) => a+b
+// nums.map(sumaDos)
+nums.map(x=> sumaDos(x, x))
+// nums.map(sumaDos(_, x))
+def contador(k: String): Int = k.length()
+def tamaño(x: List[String]): Int = x.map(contador(_)).sum
+c = List("Hola", "Hola")
+tamaño(c)

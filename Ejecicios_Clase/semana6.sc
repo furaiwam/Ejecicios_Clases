@@ -1,87 +1,50 @@
-//Tuplas y listas
-//Conjuntos -> grupo de valores únicos
-val conj2 : Set[Int] = Set()
-val conjunto : Set[Int] = Set(1, 1, 2, 2, 2, 3)
-val conjunto : Set[Int] = Set(1, 2, 3)
-val conNuevo = conjunto + 6
-//algunas funciones
-val conjunto : Set[Int] = Set(1, 2, 3)
-val conNuevo = conjunto.concat(List(2, 3, 4, 5))
-
-val conjunto : Set[Int] = Set(1, 2, 3)
-val conNuevo = conjunto.concat(List(2, 3, 4, 5))
-conNuevo.intersect(conjunto)
-
-//Mapas
-//Diccionarios o mapas
-//En Scala se contruyen diccionarios como mapas
-//  Map[K, V]
-//K - Representa a las claves
-// V - representa a los valores
-Map(("apples", 3), ("oranges", 2), ("pears", 0))
-Map("apples" -> 3, "oranges" -> 2, "pears" -> 0)
-//convertir
-//Método toMap: convertir una Lista de tuplas en un mapa
-List(("apples", 3), ("oranges", 2), ("pears", 0)).toMap
-
-//Método toSeq: convertir un Map en una secuencia de pares (tuplas 2)
-Map(("apples", 3), ("oranges", 2), ("pears", 0)).toSeq
-Map("apples" -> 3, "oranges" -> 2, "pears" -> 0).toSeq
-
-//Map en funciones
-val fruitBasket = Map("apples" -> 3, "oranges" -> 2, "pears" -> 0)
-
-fruitBasket.map {
-  case (fruit, count) => count * 2
+val nros = List(727.7, 1086.5, 1091.0, 1361.3, 1490,5, 1956.1)
+def promedio(valores : List[Double]) : Double = valores.sum / valores.size
+def desviacion(valores : List[Double]) : Double = {
+  val avg = promedio(valores)
+  def varianza(valores : List[Double]) : Double = {
+    valores.map(x => Math.pow(x - avg, 2)).sum * (1.0 / (valores.size - 1))
+  }
+  Math.sqrt(varianza(valores))
 }
-//Otro modo
-fruitBasket.map{case(fruit, count) => count * 2}
 
-fruitBasket.map{case (fruit, count) => (fruit, count * 2)}
+def clasifica(valores : List[Double]) : Unit = {
+  val s = desviacion(valores)
+  val avg = promedio(valores)
 
-fruitBasket.map{case(fruit, count) => (fruit, count, count * 2)}.
-  map{case (fruit, _, count2) => (fruit, count2/2)}.toMap
+  (1 to 3).foreach( i =>
+    println(valores.filter(x =>
+      x <= (avg - i * s) && x <= (avg + i * s)).size))
+}
 
-//filter
-//Itera sobre pares key/values
-val fruitBasket = Map("apples" -> 3, "oranges" -> 2, "pears" -> 0)
-fruitBasket
+val par = (1, "Abad Ana")
+par._1
+par._2
+val datos = ("jorgaf", 'M', 45, 95.2, true)
+val student : Tuple2[Int, String]
+val datos1 : Tuple5[String, Char, Int, Double, Boolean]
+val student1 = (1, "Abad Ana")
+val(edad, nombre) = student1
+print(edad)
+print(nombre)
+student1.canEqual(1, "Abad Ana")
+student1.swap
+val values = List(42, 31, 36, 40, 43)
+val names = ("Miguel", "Antonio", "Pedro")
+def average(valores : Seq[Double]) : Double = {
+  val t = valores.foldLeft((0.0, 0))((acc, curVal) => (acc._1 + currVal, acc._2 + 1))
+  t._1 / t._2
+}
+def average2(valores: Seq(Double)): Double {
+  val t = valores.foldLeft((0.0,0)) {(acc, currVal) =>
+    val sum = acc,_1 + currVal
+    val cont = acc._2 + 1
+    printf("suma: %f - contador: %d\n", sum, cont)
+    (sum, cont)
+  }
+  t._1/t._2
+}
+def myList (10, 20, 30, 40, 50, 60)
+def names ("Guido", "Armando", "Patricia", "Manuel", "Germania", "Fanny")
+def unzippedList: List(String) = List(myList, names)
 
-
-//GroupBy
-//Reorganiza una secuencia en un mapa donde algunos de los elementos de la secuencia original
-// se agrupan en subsecuencias
-// Por ejemplo dada una secuencia de palabras, podemos agrupar todas las palabras que comienzan con la letra "y"
-// en una subsecuencia y todas las demás palabras en otra subsecuencia
-
-Seq("wombat", "xanthan", "yogurt", "zebra").
-  groupBy(s => if (s startsWith "y") 1 else 2)
-
-// El argumento del groupBy es una función que calcula el "key" de cada elemento de cada secuencia
-// Asigna cada clave a la subsecuencia de valores que tienen esa clave. En el ejemplo actual el tipo de mapa es,
-// por tanto, Map [Int, Seq[String])
-
-// EL orden de los elementos en las subsecuencias sigue siendo el mismo que en la secuencia original
-List(1, 2, 3, 4, 5).groupBy(k => k % 3)
-
-
-val nombres = List("Oscar Becerra", "Luis Amarilla", "Michael Estrada", "Fidel Martínez", "Gonzalo Mastriani",
-  "Leonel Vides", "Rodrigo Aguirre", "Carlos Garces", "Jonathan Borja")
-val goles = List(17, 16, 16, 16, 13, 13, 12, 12, 11)
-val goleadores = nombres zip goles
-goleadores.groupBy{case (_, goals) => goals }
-//Cuantos hicieron los mismos goles
-goleadores.groupBy(row => row  match {
-  case(_, goals) => goals
-}).map(row => row match {
-  case (goles, lista) => (goles, lista.size)
-}).toList.sortBy(_._2)
-
-// Número de goles más comúm
-goleadores.groupBy(row => row match {
-  case(_, goals) =>
-}).map(row => row match{
-  case (goles, lista) => (goles, lista.size)
-}).toList.sortBy(_._2).reverse
-
-val fruit = Set("apple", "orange", "peach", "banana")
